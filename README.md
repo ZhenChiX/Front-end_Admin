@@ -4,7 +4,8 @@ Control Panel
 ### Core Dependenices/Frameworks
 React
 
-React-Admin
+React-Admin 
+https://marmelab.com/react-admin/Admin.html
 
 Material-Ui
 
