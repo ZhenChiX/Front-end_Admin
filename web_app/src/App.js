@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-// import LoginWithTheme from "./components/layouts/login";
-import Menu from "./components/layouts/menu";
+
+import Login from "./components/layouts/login";
 
 class App extends Component {
   render() {
@@ -23,7 +23,7 @@ class App extends Component {
             Learn React
           </a> */}
           {/* <LoginWithTheme /> */}
-          <Menu />
+          <Login />
         </header>
       </div>
     );
