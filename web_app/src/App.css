@@ -2,10 +2,25 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+#App-logo {
+  animation: App-logo-spin infinite 6s linear;
+  transition: 0.5s ease-in
+}
+
+#App-logo:hover {
+  /* animation: App-logo-spin-hover infinite 2s ease-in-out; */
+}
+
+#App-banner {
+  transition: 0.5s ease-in-out;
+}
+
+#App-card:hover #App-banner {
+  transform: translateY(-0.2em) scale(1.02)
+}
+
+#App-card:hover #App-logo {
+  animation: App-logo-spin-hover infinite 2s linear;
 }
 
 .App-header {
@@ -31,5 +46,14 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes App-logo-spin-hover {
+  from {
+    transform: rotate(0deg) scale(1.1);
+  }
+  to {
+    transform: rotate(-360deg) scale(1.1);
   }
 }
