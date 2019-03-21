@@ -3,18 +3,23 @@
 }
 
 #App-logo {
-  animation: App-logo-spin infinite 10s linear;
+  animation: App-logo-spin infinite 6s linear;
+  transition: 0.5s ease-in
 }
 
 #App-logo:hover {
-  animation: App-logo-spin-hover infinite 2s linear;
+  /* animation: App-logo-spin-hover infinite 2s ease-in-out; */
 }
 
-#App-login:hover~#App-logo {
-  animation: App-logo-spin-hover infinite 2s linear;
+#App-banner {
+  transition: 0.5s ease-in-out;
 }
 
-#logo-spin{
+#App-card:hover #App-banner {
+  transform: translateY(-0.2em) scale(1.02)
+}
+
+#App-card:hover #App-logo {
   animation: App-logo-spin-hover infinite 2s linear;
 }
 
