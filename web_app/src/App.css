@@ -4,7 +4,7 @@
 
 #App-logo {
   animation: App-logo-spin infinite 6s linear;
-  transition: 0.5s ease-in
+  transition: 1s ease-in-out
 }
 
 #App-logo:hover {
@@ -20,7 +20,8 @@
 }
 
 #App-card:hover #App-logo {
-  animation: App-logo-spin-hover infinite 2s linear;
+  animation: App-logo-spin infinite 2s linear, App-logo-spin-hover infinite 10s linear;
+  transition: 2s ease-in-out;
 }
 
 .App-header {
@@ -50,10 +51,24 @@
 }
 
 @keyframes App-logo-spin-hover {
-  from {
-    transform: rotate(0deg) scale(1.1);
+  0% {
+    top: -45px;
+    left: -25px;
   }
-  to {
-    transform: rotate(-360deg) scale(1.1);
+  25% {
+    top: -45px;
+    left: 250px;
+  }
+  50% {
+    top: 60px;
+    left: 250px;
+  }
+  75% {
+    top: 60px;
+    left: -25px;
+  }
+  100% {
+    top: -50px;
+    left: -25px;
   }
 }

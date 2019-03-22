@@ -15,7 +15,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import TrackChange from "@material-ui/icons/TrackChanges";
-// import Settings from "@material-ui/icons/Settings";
+import Settings from "@material-ui/icons/Settings";
 
 // tab view
 // import SwipeableViews from "react-swipeable-views";
@@ -63,13 +63,13 @@ const styles = {
     margin: "auto",
     top: "-0.3em",
     position: "relative",
-    zIndex: "1",
+    zIndex: "101",
     boxShadow: "3px 3px 10px 2px rgba(128, 128, 128, 0.7)"
   },
   spin: {
-    left: "-0.3em",
-    top: "-0.3em",
-    color: "rgba(245,205,5,0.8)",
+    left: "-25px",
+    top: "-40px",
+    color: "rgba(245,205,5,1)",
     position: "absolute",
     fontSize: "80px",
     animation: "App-logo-spin infinite 10s linear",
@@ -143,18 +143,18 @@ class Login extends Component {
       <Fragment>
         <Card id="App-card" className={classes.menu}>
           <Grid item className={classes.grid}>
-            <TrackChange
-              id="App-logo"
-              className={classes.spin}
-              color="primary"
-              spin={this.state.spin}
-            />
-            {/* <Settings
+            {/* <TrackChange
               id="App-logo"
               className={classes.spin}
               color="primary"
               spin={this.state.spin}
             /> */}
+            <Settings
+              id="App-logo"
+              className={classes.spin}
+              color="primary"
+              spin={this.state.spin}
+            />
 
             <CardMedia
               id="App-banner"
