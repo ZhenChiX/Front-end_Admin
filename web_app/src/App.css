@@ -3,12 +3,8 @@
 }
 
 #App-logo {
-  animation: App-logo-spin infinite 6s linear;
-  transition: 1s ease-in-out
-}
-
-#App-logo:hover {
-  /* animation: App-logo-spin-hover infinite 2s ease-in-out; */
+  animation: App-logo-spin infinite 3s cubic-bezier(0.88, -0.9, 0.4, 1.14);
+  transition: 1s ease-in-out;
 }
 
 #App-banner {
@@ -20,11 +16,12 @@
 }
 
 #App-card:hover #App-logo {
-  animation: App-logo-spin infinite 2s linear, App-logo-spin-hover infinite 10s linear;
-  transition: 2s ease-in-out;
+  animation: App-logo-spin infinite 1s linear, App-logo-spin-hover infinite 10s linear;
 }
 
-.App-header {
+body {}
+
+.login-background {
   background-image: url("https://source.unsplash.com/random/1600x900");
   background-repeat: no-repeat;
   background-size: cover;
@@ -35,6 +32,16 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  position: relative
+}
+
+#blur {
+  position: fixed;
+  filter: blur(3px);
+  background: rgba(2, 2, 2, 0.8) !important;
+  z-index: 2000;
+  width: 100vw;
+  height: 100vh;
 }
 
 .App-link {
@@ -52,23 +59,23 @@
 
 @keyframes App-logo-spin-hover {
   0% {
-    top: -45px;
-    left: -25px;
+    top: -35px;
+    left: -20px;
   }
   25% {
-    top: -45px;
-    left: 250px;
+    top: -40px;
+    left: 255px;
   }
   50% {
-    top: 60px;
-    left: 250px;
+    top: 70px;
+    left: 255px;
   }
   75% {
-    top: 60px;
-    left: -25px;
+    top: 70px;
+    left: -20px;
   }
   100% {
-    top: -50px;
-    left: -25px;
+    top: -35px;
+    left: -20px;
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Avatar from "@material-ui/core/Avatar";
+// import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import { TextField, CardHeader, CardMedia } from "@material-ui/core";
@@ -67,34 +67,35 @@ const styles = {
     boxShadow: "3px 3px 10px 2px rgba(128, 128, 128, 0.7)"
   },
   spin: {
-    left: "-25px",
-    top: "-40px",
+    top: "-30px",
+    left: "-15px",
     color: "rgba(245,205,5,1)",
     position: "absolute",
-    fontSize: "80px",
-    animation: "App-logo-spin infinite 10s linear",
-    zIndex: "99"
+    fontSize: "60px",
+    zIndex: "99",
+    transition: "2s ease-in-out"
   }
 };
 
 //tab container
-function TabContainer({ children, dir }) {
+const TabContainer = ({ children, dir }) => {
   return (
     <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
       {children}
     </Typography>
   );
-}
+};
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       multiline: "Controlled",
       password: "",
+      signup_password: "",
       confirmPassword: "",
       showPassword: false,
 
-      value: 0
+      index: 0
     };
   }
 
@@ -105,29 +106,12 @@ class Login extends Component {
   };
 
   handleTabChange = (event, value) => {
-    this.setState({ value });
+    this.setState({ index: value });
   };
 
   handleTabChangeIndex = index => {
-    this.setState({ value: index });
+    this.setState({ index: index });
   };
-
-  //   handleMouseOver = e => {
-  //     //   logo spin animation on hover
-  //     const node = ReactDOM.findDOMNode(this);
-  //     if (node instanceof HTMLElement) {
-  //       const target = node.querySelector("#App-logo");
-  //       target.style.animation = "App-logo-spin-hover infinite 2s linear";
-  //     }
-  //   };
-  //   handleMouseLeave = e => {
-  //     //   logo spin animation on leave
-  //     const node = ReactDOM.findDOMNode(this);
-  //     if (node instanceof HTMLElement) {
-  //       const target = node.querySelector("#App-logo");
-  //       target.style.animation = "App-logo-spin infinite 10s linear";
-  //     }
-  //   };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -136,11 +120,11 @@ class Login extends Component {
     this.setState(state => ({ showPassword: !state.showPassword }));
   };
 
-  handleRotate = e => {};
   render() {
     const { classes } = this.props;
+    const { index } = this.state;
     return (
-      <Fragment>
+      <div className="login-background">
         <Card id="App-card" className={classes.menu}>
           <Grid item className={classes.grid}>
             {/* <TrackChange
@@ -160,15 +144,15 @@ class Login extends Component {
               id="App-banner"
               className={classes.media}
               image="https://img.talkandroid.com/uploads/2014/03/sprint-logo-630x330.jpg"
-              //   image="https://preview.redd.it/izy5wrj4st221.png?width=960&crop=smart&auto=webp&s=2da2da0e512c6dfd15ade892440dc6b12c54afa3"
-              // image="https://via.placeholder.com/630x330?text=SAuto+Placeholder+Banner"
+              // image="https://preview.redd.it/izy5wrj4st221.png?width=960&crop=smart&auto=webp&s=2da2da0e512c6dfd15ade892440dc6b12c54afa3"
+              //   image="https://via.placeholder.com/630x330?text=SAuto+Placeholder+Banner"
               alt="Sprint Logo"
             />
           </Grid>
 
           <AppBar className={classes.tabs} position="static" color="default">
             <Tabs
-              value={this.state.value}
+              value={index}
               onChange={this.handleTabChange}
               indicatorColor="primary"
               textColor="primary"
@@ -178,7 +162,14 @@ class Login extends Component {
               <Tab label="SignUp" />
             </Tabs>
           </AppBar>
-          {this.state.value === 0 && (
+
+          {/* <SwipeableViews
+            index={index}
+            onChangeIndex={this.handleTabChangeIndex}
+          > */}
+
+          {/* ==========LOGIN SECTION========== */}
+          {index === 0 && (
             <TabContainer>
               <form
                 className={classes.container}
@@ -222,7 +213,6 @@ class Login extends Component {
                 />
                 <Button
                   variant="contained"
-                  //   color="primary"
                   id="App-login"
                   onMouseOver={this.handleMouseOver}
                   onMouseLeave={this.handleMouseLeave}
@@ -233,7 +223,8 @@ class Login extends Component {
             </TabContainer>
           )}
 
-          {this.state.value === 1 && (
+          {/* ==========SIGNUP SECTION========== */}
+          {index === 1 && (
             <TabContainer>
               <form
                 className={classes.container}
@@ -256,8 +247,8 @@ class Login extends Component {
                   className={classes.textField}
                   type={this.state.showPassword ? "text" : "password"}
                   label="Password"
-                  value={this.state.password}
-                  onChange={this.handleChange("password")}
+                  value={this.state.signup_password}
+                  onChange={this.handleChange("signup_password")}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -311,8 +302,9 @@ class Login extends Component {
               </form>
             </TabContainer>
           )}
+          {/* </SwipeableViews> */}
         </Card>
-      </Fragment>
+      </div>
     );
   }
 }
