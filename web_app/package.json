@@ -17,6 +17,7 @@
     "react-scripts": "2.1.8",
     "react-spinners": "^0.5.3",
     "react-swipeable-views": "^0.13.1",
+    "react-table": "^6.9.2",
     "redux": "^4.0.1"
   },
   "scripts": {

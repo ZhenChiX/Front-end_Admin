@@ -1,3 +1,7 @@
+a {
+  text-decoration: none;
+}
+
 .App {
   text-align: center;
 }
@@ -18,8 +22,6 @@
 #App-card:hover #App-logo {
   animation: App-logo-spin infinite 1s linear, App-logo-spin-hover infinite 10s linear;
 }
-
-body {}
 
 .login-background {
   background-image: url("https://source.unsplash.com/random/1600x900");

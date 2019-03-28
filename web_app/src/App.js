@@ -17,14 +17,7 @@ const styles = {
     top: "2em",
     right: "2em"
   },
-  // background: {
-  //   position: "fixed",
-  //   filter: "blur(5px)",
-  //   background: "rgba(2,2,2,1)",
-  //   zIndex: 5000,
-  //   width: "100vw",
-  //   height: "100vh"
-  // },
+
   progress: {
     display: "block",
     top: "40%",
@@ -63,7 +56,7 @@ class App extends Component {
       this.setState({
         auth: true
       });
-    }, 3000);
+    }, 1000);
 
     console.log(this.state);
   };
