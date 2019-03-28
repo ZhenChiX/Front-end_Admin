@@ -143,9 +143,9 @@ class Login extends Component {
             <CardMedia
               id="App-banner"
               className={classes.media}
-              image="https://img.talkandroid.com/uploads/2014/03/sprint-logo-630x330.jpg"
+              //   image="https://img.talkandroid.com/uploads/2014/03/sprint-logo-630x330.jpg"
               // image="https://preview.redd.it/izy5wrj4st221.png?width=960&crop=smart&auto=webp&s=2da2da0e512c6dfd15ade892440dc6b12c54afa3"
-              //   image="https://via.placeholder.com/630x330?text=SAuto+Placeholder+Banner"
+              image="https://via.placeholder.com/630x330?text=SAuto+Placeholder+Banner"
               alt="Sprint Logo"
             />
           </Grid>
