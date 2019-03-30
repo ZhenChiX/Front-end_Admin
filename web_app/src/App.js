@@ -86,7 +86,7 @@ class App extends Component {
                   </div>
                 </Modal>
               ) : (
-                <div />
+                <span />
               )}
             </div>
           )}

@@ -6,6 +6,13 @@ a {
   text-align: center;
 }
 
+#wdr-component {
+  width: 85vw;
+  height: 70vh;
+  overflow: no;
+  margin: auto;
+}
+
 #App-logo {
   animation: App-logo-spin infinite 3s cubic-bezier(0.88, -0.9, 0.4, 1.14);
   transition: 1s ease-in-out;
