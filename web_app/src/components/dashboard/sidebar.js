@@ -21,6 +21,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import Chart from "../data/graph";
 import News from "../data/news";
 import TableView from "../data/tableview";
+import TableView2 from "../data/tableview2";
 
 import InsertChart from "@material-ui/icons/InsertChart";
 import BubbleChart from "@material-ui/icons/BubbleChart";
@@ -47,7 +48,7 @@ const styles = theme => ({
     flexGrow: "1"
   },
   appBar: {
-    backgroundColor: "orange",
+    backgroundColor: "rgba(128,128,128,0.9)",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -253,7 +254,7 @@ class SideBar extends React.Component {
                       <ListItemText>Table View A</ListItemText>
                     </ListItem>
                   </Link>
-                  <Link to="/graph3d">
+                  <Link to="/tableview2">
                     <ListItem button>
                       <ListItemIcon>
                         <ShowChart />
@@ -270,6 +271,7 @@ class SideBar extends React.Component {
                 <Route path="/news" component={News} />
                 <Route path="/graph3d" component={Chart} />
                 <Route path="/tableview" component={TableView} />
+                <Route path="/tableview2" component={TableView2} />
               </main>
             </div>
           )}

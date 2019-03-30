@@ -8,7 +8,7 @@ const API_URL =
 // const API_URL =
 //   "http://www.json-generator.com/api/json/get/bTGUFfhDNe?indent=1";
 
-class TableView extends Component {
+class TableView2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -156,9 +156,18 @@ class TableView extends Component {
     // getKeys(dataB);
     // setTimeout(getKeys(dataB),100);
     ////////// get json keys into array //////////
+    // const width = "";
     const columnsB = Object.keys(dataB[0]).map(key => ({
       Header: key,
-      accessor: key
+      accessor: key,
+      width: 150,
+      margin: "auto",
+      resizable: true,
+      filterable: true,
+      style: {
+        whiteSpace: "normal"
+        // overflow: "auto"
+      }
     }));
 
     // let makeColumns = () => {
@@ -181,28 +190,48 @@ class TableView extends Component {
     // console.log(tableData);
     return (
       <div>
-        {/* {this.state.loading && (
-          <div>
-            <h3>Simple JSON table without nested data</h3>
-            <ReactTable
-              data={dataB}
-              columns={columnsB}
-              Cell={({ value }) => String(value)}
-              resolveData={data => data.map(row => row)}
-              resizable="true"
-            />
-
-            <ReactTable
-              data={tableData}
-              columns={columnsB}
-              Cell={({ value }) => String(value)}
-              resolveData={data => data.map(row => row)}
-              resizable="true"
-            />
-          </div>
-        )} */}
+        {/* {this.state.loading && ( */}
+        <div>
+          <h3>Simple JSON table with nested data</h3>
+          <ReactTable
+            className="-striped -highlight"
+            data={dataB}
+            columns={columnsB}
+            Cell={({ value }) => String(value)}
+            resolveData={data => data.map(row => row)}
+            resizable="true"
+            defaultPageSize={5}
+            style={{
+              wordWrap: "break-word",
+              borderRadius: "5px",
+              width: "85vw",
+              padding: "5px",
+              whiteSpace: "normal",
+              margin: "auto"
+            }}
+          />
+          <h4>Line break here</h4>
+          <br />
+          <ReactTable
+            className="-striped -highlight"
+            data={tableData}
+            columns={columnsB}
+            Cell={({ value }) => String(value)}
+            resolveData={data => data.map(row => row)}
+            defaultPageSize={10}
+            resizable="true"
+            style={{
+              wordWrap: "break-word",
+              borderRadius: "5px",
+              width: "85vw",
+              margin: "50px auto",
+              padding: "50px auto",
+              whiteSpace: "normal"
+            }}
+          />
+        </div>
       </div>
     );
   }
 }
-export default TableView;
+export default TableView2;
