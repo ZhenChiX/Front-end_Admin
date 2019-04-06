@@ -10,10 +10,18 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
 const styles = {
+  container: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill,minmax(250px,1fr))",
+    gridColumnGap: "1em",
+    width: "80vw",
+    margin: "auto"
+  },
+
   card: {
-    Width: 300,
-    margin: "2em auto",
-    padding: "1em auto"
+    width: 300,
+    margin: "24px auto",
+    padding: "24px auto"
   },
   media: {
     // ⚠️ object-fit is not supported by IE 11.
@@ -24,13 +32,7 @@ const styles = {
 function News(props) {
   const { classes } = props;
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill,minmax(250px,1fr))",
-        gridColumnGap: "1em"
-      }}
-    >
+    <div className={classes.container}>
       <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
