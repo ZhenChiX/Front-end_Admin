@@ -48,7 +48,7 @@ const styles = theme => ({
     flexGrow: "1"
   },
   appBar: {
-    backgroundColor: "rgba(128,128,128,0.9)",
+    backgroundColor: "rgba(102,102,102,1)",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -73,9 +73,11 @@ const styles = theme => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    whiteSpace: "nowrap"
+    whiteSpace: "nowrap",
+    backgroundColor: "rgba(241,241,241,1)"
   },
   drawerOpen: {
+    backgroundColor: "rgba(241,241,241,1)",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -83,6 +85,7 @@ const styles = theme => ({
     })
   },
   drawerClose: {
+    backgroundColor: "rgba(241,241,241,1)",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -101,8 +104,8 @@ const styles = theme => ({
     ...theme.mixins.toolbar
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3
+    flexGrow: 1
+    // padding: theme.spacing.unit * 3
   }
 });
 
