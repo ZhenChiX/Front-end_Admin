@@ -1,5 +1,4 @@
 import React from "react";
-// import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -48,7 +47,7 @@ const styles = theme => ({
     flexGrow: "1"
   },
   appBar: {
-    backgroundColor: "rgba(102,102,102,1)",
+    backgroundColor: "rgba(102,102,102,0.9)",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -142,8 +141,6 @@ class SideBar extends React.Component {
     const { classes, theme } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-
-    console.log(this.state);
 
     return (
       <Router>
@@ -283,10 +280,5 @@ class SideBar extends React.Component {
     );
   }
 }
-
-// MiniDrawer.propTypes = {
-//   classes: PropTypes.object.isRequired,
-//   theme: PropTypes.object.isRequired
-// };
 
 export default withStyles(styles, { withTheme: true })(SideBar);

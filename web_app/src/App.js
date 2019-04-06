@@ -28,7 +28,9 @@ const styles = {
   }
 };
 
+////////// context API //////////
 export const GlobalContext = React.createContext();
+////////// context API //////////
 
 class App extends Component {
   constructor(props) {
@@ -58,7 +60,6 @@ class App extends Component {
       });
     }, 1000);
 
-    console.log(this.state);
   };
   render() {
     return (

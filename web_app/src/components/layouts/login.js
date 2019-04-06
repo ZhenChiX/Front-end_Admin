@@ -24,6 +24,16 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 
+//setup authentication
+// import withFirebaseAuth from "react-with-firebase-auth";
+import "firebase/auth";
+import * as firebase from "firebase/app";
+import firebaseConfig from "../data/fire";
+
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+console.log(firebaseApp);
+console.log(firebaseConfig);
+
 const styles = {
   container: {
     display: "grid",
@@ -127,12 +137,6 @@ class Login extends Component {
       <div className="login-background">
         <Card id="App-card" className={classes.menu}>
           <Grid item className={classes.grid}>
-            {/* <TrackChange
-              id="App-logo"
-              className={classes.spin}
-              color="primary"
-              spin={this.state.spin}
-            /> */}
             <Settings
               id="App-logo"
               className={classes.spin}
@@ -162,11 +166,6 @@ class Login extends Component {
               <Tab label="SignUp" />
             </Tabs>
           </AppBar>
-
-          {/* <SwipeableViews
-            index={index}
-            onChangeIndex={this.handleTabChangeIndex}
-          > */}
 
           {/* ==========LOGIN SECTION========== */}
           {index === 0 && (
