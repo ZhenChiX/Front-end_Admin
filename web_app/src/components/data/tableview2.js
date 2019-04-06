@@ -2,7 +2,29 @@ import React, { Component } from "react";
 
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+
+//select material ui
+import Input from "@material-ui/core/Input";
+import FilledInput from "@material-ui/core/FilledInput";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import NativeSelect from "@material-ui/core/NativeSelect";
+
 const WebDataRocks = window.WebDataRocksReact;
+const styles = {
+  div: {
+    width: "80vw",
+    margin: "auto"
+  },
+
+  formControl: {
+    display: "grid",
+    width: "160px",
+    margin: "1em 1em 1em 0",
+    height: "3em"
+  }
+};
 
 const dataB = [
   {
@@ -91,8 +113,8 @@ const dataB = [
   }
 ];
 
-const API_URL =
-  "http://www.json-generator.com/api/json/get/bOykqbJlpe?indent=2";
+// const API_URL =
+//   "http://www.json-generator.com/api/json/get/bOykqbJlpe?indent=2";
 // const API_URL =
 //   "http://www.json-generator.com/api/json/get/bTGUFfhDNe?indent=1";
 
@@ -102,21 +124,28 @@ class TableView2 extends Component {
     this.state = {
       loading: false,
       columns: [],
-      result: []
+      result: [],
+      apiURL: "http://www.json-generator.com/api/json/get/bTGUFfhDNe?indent=1"
     };
   }
 
+  componentDidMount() {
+    this.fetchData();
+  }
+
   fetchData = async () => {
-    const response = await fetch(API_URL);
+    const response = await fetch(this.state.apiURL);
     const json = await response.json();
     this.setState({ tableData: json, loading: true });
     this.getKeys(json);
     this.getColumns();
   };
-  componentDidMount() {
-    this.fetchData();
-  }
 
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value, result: [] }, () => {
+      this.fetchData();
+    });
+  };
   ////////// get json keys into array //////////
   getKeys = data =>
     Object.keys(data[0]).forEach(x => {
@@ -136,11 +165,14 @@ class TableView2 extends Component {
       columns: this.state.result.map(key => ({
         Header: key,
         accessor: key,
-        width: 140,
+        width: 130,
+        resizable: false,
         margin: "auto",
-        filterable: true,
+        textAlign: "left",
         style: {
-          whiteSpace: "normal"
+          whiteSpace: "normal",
+          fontWeight: "normal",
+          textTransform: "none"
         }
       }))
     });
@@ -149,13 +181,20 @@ class TableView2 extends Component {
 
   render() {
     const { tableData, columns } = this.state;
-    console.log(this.state);
     const columnsB = Object.keys(dataB[0]).map(key => ({
       Header: key,
       accessor: key,
       width: 120,
       margin: "auto",
       filterable: true,
+      defaultFilterMethod: (filter, row, column) => {
+        const id = filter.pivotId.toLowercase() || filter.id;
+        return row[id] !== undefined
+          ? String(row[id])
+              .startsWith(filter.value)
+              .toLowerCase()
+          : true;
+      },
       style: {
         whiteSpace: "normal"
       }
@@ -163,18 +202,37 @@ class TableView2 extends Component {
 
     return (
       <div>
-        {this.state.loading && (
-          <div>
-            <h3>Data Visualization</h3>
+        <div>
+          <h3>Data Visualization</h3>
+          <div style={styles.div}>
+            <FormControl variant="filled" style={styles.formControl}>
+              <InputLabel htmlFor="data_source">Data Source</InputLabel>
+              <Select
+                native
+                value={this.state.apiURL}
+                onChange={this.handleChange("apiURL")}
+                input={<FilledInput name="apiURL" id="data_source" />}
+              >
+                <option value="http://www.json-generator.com/api/json/get/bTGUFfhDNe?indent=1">
+                  Data A
+                </option>
+                <option value="http://www.json-generator.com/api/json/get/bOykqbJlpe?indent=2">
+                  Data B
+                </option>
+              </Select>
+            </FormControl>
+
             <ReactTable
               className="-striped -highlight"
               data={tableData}
               columns={columns}
               Cell={({ value }) => String(value)}
               resolveData={data => data.map(row => row)}
-              resizable="true"
               defaultPageSize={5}
+              filterable
               style={{
+                fontWeight: "bold",
+                textTransform: "uppercase",
                 wordWrap: "break-word",
                 borderRadius: "5px",
                 width: "80vw",
@@ -202,9 +260,9 @@ class TableView2 extends Component {
                 whiteSpace: "normal"
               }}
             />
-            {/* <WebDataRocks report="https://cdn.webdatarocks.com/reports/report.json" /> */}
           </div>
-        )}
+          {/* <WebDataRocks report="https://cdn.webdatarocks.com/reports/report.json" /> */}
+        </div>
       </div>
     );
   }
