@@ -31,7 +31,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import { GlobalContext } from "../../App";
+import { GlobalContext } from "../layouts/login";
+import fire from "../data/fire";
 
 const drawerWidth = 240;
 
@@ -135,12 +136,14 @@ class SideBar extends React.Component {
   };
 
   handleLogout = () => {
-    console.log(GlobalContext);
+    fire.auth().signOut();
+    // console.log(GlobalContext);
   };
   render() {
     const { classes, theme } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
+    console.log(GlobalContext);
 
     return (
       <Router>
@@ -172,6 +175,7 @@ class SideBar extends React.Component {
                     noWrap
                   >
                     SAuto
+                    {/* <p>{value.email}</p> */}
                   </Typography>
                   <div>
                     <IconButton
@@ -197,7 +201,9 @@ class SideBar extends React.Component {
                       onClose={this.handleClose}
                     >
                       <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={value.state.logOut}>Log Out</MenuItem>
+                      <Link to="/">
+                        <MenuItem onClick={this.handleLogout}>Log Out</MenuItem>
+                      </Link>
                     </Menu>
                   </div>
                 </Toolbar>
@@ -235,25 +241,17 @@ class SideBar extends React.Component {
                       <ListItemText>News</ListItemText>
                     </ListItem>
                   </Link>
-                  <Link to="/graph3d">
+                  {/* <Link to="/graph3d">
                     <ListItem button>
                       <ListItemIcon>
                         <InsertChart />
                       </ListItemIcon>
                       <ListItemText>3D Graph</ListItemText>
                     </ListItem>
-                  </Link>
+                  </Link> */}
                 </List>
                 <Divider />
                 <List>
-                  <Link to="/tableview">
-                    <ListItem button>
-                      <ListItemIcon>
-                        <InsertChart />
-                      </ListItemIcon>
-                      <ListItemText>Table View A</ListItemText>
-                    </ListItem>
-                  </Link>
                   <Link to="/tableview2">
                     <ListItem button>
                       <ListItemIcon>
@@ -269,8 +267,7 @@ class SideBar extends React.Component {
 
                 <Route exact path="/" component={News} />
                 <Route path="/news" component={News} />
-                <Route path="/graph3d" component={Chart} />
-                <Route path="/tableview" component={TableView} />
+                {/* <Route path="/graph3d" component={Chart} /> */}
                 <Route path="/tableview2" component={TableView2} />
               </main>
             </div>
