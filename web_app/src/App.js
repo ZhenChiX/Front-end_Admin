@@ -5,6 +5,7 @@ import "./App.css";
 import Login from "./components/layouts/login";
 import Dashboard from "./components/dashboard/dashboard.js";
 import Button from "@material-ui/core/Button";
+import fire from "./components/data/fire";
 
 import Fade from "@material-ui/core/Fade";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -29,7 +30,7 @@ const styles = {
 };
 
 ////////// context API //////////
-export const GlobalContext = React.createContext();
+// export const GlobalContext = React.createContext();
 ////////// context API //////////
 
 class App extends Component {
@@ -37,64 +38,81 @@ class App extends Component {
     super(props);
     this.state = {
       auth: false,
+      query: "idle",
+      user: null,
       logOut: () => {
         console.log("User logged out");
         this.setState({
           auth: false,
           query: "idle"
         });
-      },
-      query: "idle"
+      }
     };
   }
   componentDidMount() {
     clearTimeout(this.timer);
-  }
-  guestLogin = () => {
-    this.setState({
-      query: "progress"
-    });
-    this.timer = setTimeout(() => {
-      this.setState({
-        auth: true
-      });
-    }, 1000);
 
+    this.authListener();
+  }
+
+  authListener = () => {
+    fire.auth().onAuthStateChanged(user => {
+      console.log(user);
+      if (user) {
+        this.setState({ user });
+        localStorage.setItem("user", user.uid);
+      } else {
+        this.setState({ user: null });
+        localStorage.removeItem("user");
+      }
+    });
   };
+  // guestLogin = () => {
+  //   this.setState({
+  //     query: "progress"
+  //   });
+  //   this.timer = setTimeout(() => {
+  //     this.setState({
+  //       auth: true
+  //     });
+  //   }, 1000);
+  // };
   render() {
     return (
-      <GlobalContext.Provider value={{ state: this.state }}>
-        <div className="App">
-          {this.state.auth === true ? (
-            <Dashboard />
-          ) : (
-            <div>
-              <Login />
-              {/* ==========TESTING GUEST LOGIN ========== REMOVE IT SOON*/}
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={this.guestLogin}
-                style={styles.button}
-              >
-                GUEST LOGIN
-              </Button>
-              {/* ==========TESTING GUEST LOGIN ========== REMOVE IT SOON */}
-              {this.state.query === "progress" ? (
-                <Modal open="true">
-                  <div style={styles.progress}>
-                    <PacmanLoader color="rgba(245,205,5,1)" />
-                  </div>
-                </Modal>
-              ) : (
-                <span />
-              )}
-            </div>
-          )}
-        </div>
-      </GlobalContext.Provider>
+      // <GlobalContext.Provider value={{ state: this.state }}>
+      <div className="App">
+        <div>{this.state.user ? <Dashboard /> : <Login />}</div>
+      </div>
+      // </GlobalContext.Provider>
     );
   }
 }
 
 export default App;
+
+// {this.state.auth === true ? (
+//   <Dashboard />
+// ) : (
+//   <div>
+//     <Login />
+//     {/* ==========TESTING GUEST LOGIN ========== REMOVE IT SOON*/}
+//     <Button
+//       variant="contained"
+//       color="secondary"
+//       onClick={this.guestLogin}
+//       style={styles.button}
+//     >
+//       GUEST LOGIN
+//     </Button>
+//     {/* ==========TESTING GUEST LOGIN ========== REMOVE IT SOON */}
+//     {this.state.query === "progress" ? (
+//       <Modal open="true">
+//         <div style={styles.progress}>
+//           <PacmanLoader color="rgba(245,205,5,1)" />
+//         </div>
+//       </Modal>
+//     ) : (
+//       <span />
+//     )}
+//   </div>
+// )}
