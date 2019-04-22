@@ -31,8 +31,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import { GlobalContext } from "../layouts/login";
+// import { GlobalContext } from "../layouts/login";
+import { GlobalContext } from "../../App";
 import fire from "../data/fire";
+import Profile from "../dashboard/modal";
 
 const drawerWidth = 240;
 
@@ -48,7 +50,7 @@ const styles = theme => ({
     flexGrow: "1"
   },
   appBar: {
-    backgroundColor: "rgba(102,102,102,0.9)",
+    backgroundColor: "rgba(102,102,102,1)",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
@@ -105,15 +107,26 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1
-    // padding: theme.spacing.unit * 3
   }
 });
 
 class SideBar extends React.Component {
-  state = {
-    open: false,
-    anchorEl: null
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      open: false,
+      anchorEl: null,
+      profileModal: false
+    };
+  }
+
+  componentDidMount() {
+    console.log(GlobalContext);
+    console.log(this.props);
+
+    // this.setState((state = this.context));
+  }
 
   handleChange = event => {
     this.setState({ auth: event.target.checked });
@@ -134,23 +147,33 @@ class SideBar extends React.Component {
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
+  // handleMenu = () => {
+  //   this.setState({ open: true });
+  // };
+
+  handleProfile = () => {
+    this.setState({ profileModal: true });
+  };
 
   handleLogout = () => {
     fire.auth().signOut();
-    // console.log(GlobalContext);
   };
   render() {
     const { classes, theme } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    console.log(GlobalContext);
+    // const open = this.state.open;
 
+    SideBar.contextType = GlobalContext;
     return (
       <Router>
         <GlobalContext.Consumer>
           {value => (
             <div className={classes.root}>
+              {console.log(value.state.user.email)}
               <CssBaseline />
+
+              {console.log(this.state)}
               <AppBar
                 position="fixed"
                 className={classNames(classes.appBar, {
@@ -200,7 +223,10 @@ class SideBar extends React.Component {
                       open={open}
                       onClose={this.handleClose}
                     >
-                      <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                      <MenuItem onClick={this.handleProfile}>
+                        <p>Profile</p>
+                        <Profile />
+                      </MenuItem>
                       <Link to="/">
                         <MenuItem onClick={this.handleLogout}>Log Out</MenuItem>
                       </Link>
@@ -241,14 +267,6 @@ class SideBar extends React.Component {
                       <ListItemText>News</ListItemText>
                     </ListItem>
                   </Link>
-                  {/* <Link to="/graph3d">
-                    <ListItem button>
-                      <ListItemIcon>
-                        <InsertChart />
-                      </ListItemIcon>
-                      <ListItemText>3D Graph</ListItemText>
-                    </ListItem>
-                  </Link> */}
                 </List>
                 <Divider />
                 <List>
@@ -267,7 +285,6 @@ class SideBar extends React.Component {
 
                 <Route exact path="/" component={News} />
                 <Route path="/news" component={News} />
-                {/* <Route path="/graph3d" component={Chart} /> */}
                 <Route path="/tableview2" component={TableView2} />
               </main>
             </div>
