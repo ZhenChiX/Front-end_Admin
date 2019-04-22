@@ -101,8 +101,7 @@ const TabContainer = ({ children, dir }) => {
   );
 };
 
-export const GlobalContext = React.createContext();
-
+// export const GlobalContext = React.createContext("ASS HOLE");
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -110,6 +109,7 @@ class Login extends Component {
       multiline: "Controlled",
       email: "",
       password: "",
+      signup_email: "",
       signup_password: "",
       confirm_password: "",
       showPassword: false,
@@ -118,8 +118,6 @@ class Login extends Component {
     };
   }
 
-  componentDidMount() {}
-  componentWillUpdate() {}
   handleChange = name => e => {
     this.setState({ [name]: e.target.value });
   };
@@ -135,6 +133,7 @@ class Login extends Component {
   handleLogin = e => {
     e.preventDefault();
     this.loginLoader();
+
     this.timer = setTimeout(() => {
       fire
         .auth()
@@ -162,16 +161,16 @@ class Login extends Component {
   };
 
   handleSignUp = e => {
+    e.preventDefault();
     if (this.state.confirm_password === this.state.signup_password) {
       console.log("matching pw");
-      e.preventDefault();
       fire
         .auth()
         .createUserWithEmailAndPassword(
-          this.state.email,
+          this.state.signup_email,
           this.state.signup_password
         )
-        // .then(u => {})
+        .then(u => {})
         .then(u => {
           console.log(u);
         })
@@ -189,199 +188,201 @@ class Login extends Component {
   render() {
     const { classes } = this.props;
     const { index } = this.state;
+
     return (
-      <GlobalContext.Provider value={this.state.email}>
-        <div className="login-background">
-          <Card id="App-card" className={classes.menu}>
-            <Grid item className={classes.grid}>
-              <Settings
-                id="App-logo"
-                className={classes.spin}
-                color="primary"
-                spin={this.state.spin}
-              />
+      // <GlobalContext.Provider value={{ state: this.state }}>
+      //   {console.log(this.state)}
+      <div className="login-background">
+        <Card id="App-card" className={classes.menu}>
+          <Grid item className={classes.grid}>
+            <Settings
+              id="App-logo"
+              className={classes.spin}
+              color="primary"
+              spin={this.state.spin}
+            />
 
-              <CardMedia
-                id="App-banner"
-                className={classes.media}
-                //   image="https://img.talkandroid.com/uploads/2014/03/sprint-logo-630x330.jpg"
-                // image="https://preview.redd.it/izy5wrj4st221.png?width=960&crop=smart&auto=webp&s=2da2da0e512c6dfd15ade892440dc6b12c54afa3"
-                image="https://via.placeholder.com/630x330?text=SAuto+Placeholder+Banner"
-                alt="Sprint Logo"
-              />
-            </Grid>
+            <CardMedia
+              id="App-banner"
+              className={classes.media}
+              //   image="https://img.talkandroid.com/uploads/2014/03/sprint-logo-630x330.jpg"
+              // image="https://preview.redd.it/izy5wrj4st221.png?width=960&crop=smart&auto=webp&s=2da2da0e512c6dfd15ade892440dc6b12c54afa3"
+              image="https://via.placeholder.com/630x330?text=SAuto+Placeholder+Banner"
+              alt="Sprint Logo"
+            />
+          </Grid>
 
-            <AppBar className={classes.tabs} position="static" color="default">
-              <Tabs
-                value={index}
-                onChange={this.handleTabChange}
-                indicatorColor="primary"
-                textColor="primary"
-                variant="fullWidth"
+          <AppBar className={classes.tabs} position="static" color="default">
+            <Tabs
+              value={index}
+              onChange={this.handleTabChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+            >
+              <Tab label="Login" />
+              <Tab label="SignUp" />
+            </Tabs>
+          </AppBar>
+
+          {/* ==========LOGIN SECTION========== */}
+          {index === 0 && (
+            <TabContainer>
+              <form
+                className={classes.container}
+                onSubmit={this.handleSubmit}
+                noValidate
+                autoComplete="off"
               >
-                <Tab label="Login" />
-                <Tab label="SignUp" />
-              </Tabs>
-            </AppBar>
+                <TextField
+                  required
+                  type="email"
+                  name="email"
+                  id="login_username"
+                  label="UserName/Email"
+                  className={classes.textField}
+                  onChange={this.handleChange("email")}
+                  margin="normal"
+                />
 
-            {/* ==========LOGIN SECTION========== */}
-            {index === 0 && (
-              <TabContainer>
-                <form
-                  className={classes.container}
-                  onSubmit={this.handleSubmit}
-                  noValidate
-                  autoComplete="off"
+                <TextField
+                  required
+                  type="password"
+                  name="password"
+                  id="login_password"
+                  className={classes.textField}
+                  type={this.state.showPassword ? "text" : "password"}
+                  label="Password"
+                  value={this.state.password}
+                  onChange={this.handleChange("password")}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="Toggle password visibility"
+                          onClick={this.handleClickShowPassword}
+                        >
+                          {this.state.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  id="App-login"
+                  onClick={this.handleLogin}
+                  type="sumbit"
+                  //   onMouseOver={this.handleMouseOver}
+                  //   onMouseLeave={this.handleMouseLeave}
                 >
-                  <TextField
-                    required
-                    type="email"
-                    name="email"
-                    id="login_username"
-                    label="UserName/Email"
-                    className={classes.textField}
-                    onChange={this.handleChange("email")}
-                    margin="normal"
-                  />
-
-                  <TextField
-                    required
-                    type="password"
-                    name="password"
-                    id="login_password"
-                    className={classes.textField}
-                    type={this.state.showPassword ? "text" : "password"}
-                    label="Password"
-                    value={this.state.password}
-                    onChange={this.handleChange("password")}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="Toggle password visibility"
-                            onClick={this.handleClickShowPassword}
-                          >
-                            {this.state.showPassword ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-                  <Button
-                    variant="contained"
-                    id="App-login"
-                    onClick={this.handleLogin}
-                    type="sumbit"
-                    //   onMouseOver={this.handleMouseOver}
-                    //   onMouseLeave={this.handleMouseLeave}
-                  >
-                    Login
-                  </Button>
-                </form>
-              </TabContainer>
-            )}
-
-            {/* ==========SIGNUP SECTION========== */}
-            {index === 1 && (
-              <TabContainer>
-                <form
-                  className={classes.container}
-                  onSubmit={this.handleSubmit}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    required
-                    type="email"
-                    name="email"
-                    id="signup_username"
-                    label="UserName/Email"
-                    className={classes.textField}
-                    onChange={this.handleChange("name")}
-                    margin="normal"
-                  />
-
-                  <TextField
-                    required
-                    type="password"
-                    name="signup_password"
-                    id="signup_password"
-                    className={classes.textField}
-                    type={this.state.showPassword ? "text" : "password"}
-                    label="Password"
-                    value={this.state.signup_password}
-                    onChange={this.handleChange("signup_password")}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="Toggle password visibility"
-                            onClick={this.handleClickShowPassword}
-                          >
-                            {this.state.showPassword ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-                  <TextField
-                    required
-                    type="password"
-                    name="confirm_password"
-                    id="confirm_password"
-                    className={classes.textField}
-                    type={this.state.showPassword ? "text" : "password"}
-                    label="Confirm Password"
-                    value={this.state.confirmPassword}
-                    onChange={this.handleChange("confirm_password")}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="Toggle password visibility"
-                            onClick={this.handleClickShowPassword}
-                          >
-                            {this.state.showPassword ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-                  <Button
-                    variant="contained"
-                    id="App-register"
-                    onClick={this.handleSignUp}
-                  >
-                    Register
-                  </Button>
-                </form>
-              </TabContainer>
-            )}
-            {/* </SwipeableViews> */}
-          </Card>
-          {this.state.query === "progress" ? (
-            <Modal open="true">
-              <div style={styles.progress}>
-                <PacmanLoader color="rgba(245,205,5,1)" />
-              </div>
-            </Modal>
-          ) : (
-            <span />
+                  Login
+                </Button>
+              </form>
+            </TabContainer>
           )}
-        </div>
-      </GlobalContext.Provider>
+
+          {/* ==========SIGNUP SECTION========== */}
+          {index === 1 && (
+            <TabContainer>
+              <form
+                className={classes.container}
+                onSubmit={this.handleSubmit}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  required
+                  type="email"
+                  name="email"
+                  id="signup_email"
+                  label="UserName/Email"
+                  className={classes.textField}
+                  onChange={this.handleChange("signup_email")}
+                  margin="normal"
+                />
+
+                <TextField
+                  required
+                  type="password"
+                  name="signup_password"
+                  id="signup_password"
+                  className={classes.textField}
+                  type={this.state.showPassword ? "text" : "password"}
+                  label="Password"
+                  value={this.state.signup_password}
+                  onChange={this.handleChange("signup_password")}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="Toggle password visibility"
+                          onClick={this.handleClickShowPassword}
+                        >
+                          {this.state.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <TextField
+                  required
+                  type="password"
+                  name="confirm_password"
+                  id="confirm_password"
+                  className={classes.textField}
+                  type={this.state.showPassword ? "text" : "password"}
+                  label="Confirm Password"
+                  value={this.state.confirmPassword}
+                  onChange={this.handleChange("confirm_password")}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="Toggle password visibility"
+                          onClick={this.handleClickShowPassword}
+                        >
+                          {this.state.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  id="App-register"
+                  onClick={this.handleSignUp}
+                >
+                  Register
+                </Button>
+              </form>
+            </TabContainer>
+          )}
+          {/* </SwipeableViews> */}
+        </Card>
+        {this.state.query === "progress" ? (
+          <Modal open="true">
+            <div style={styles.progress}>
+              <PacmanLoader color="rgba(245,205,5,1)" />
+            </div>
+          </Modal>
+        ) : (
+          <span />
+        )}
+      </div>
+      // </GlobalContext.Provider>
     );
   }
 }
