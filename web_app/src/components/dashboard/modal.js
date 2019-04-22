@@ -17,7 +17,11 @@ class Profile extends Component {
 
   render() {
     return (
-      <Modal open={this.state.profileModal} onClose={this.handleClose}>
+      <Modal
+        open={this.state.profileModal}
+        // onClick={this.handleProfileOpen}
+        onClose={this.handleClose}
+      >
         <Card>
           <div>
             <h4>Profile</h4>

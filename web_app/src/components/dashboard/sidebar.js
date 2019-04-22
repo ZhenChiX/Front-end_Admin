@@ -147,12 +147,11 @@ class SideBar extends React.Component {
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
-  // handleMenu = () => {
-  //   this.setState({ open: true });
-  // };
 
-  handleProfile = () => {
-    this.setState({ profileModal: true });
+  handleProfile = e => {
+    e.stopPropagation();
+    console.log("click me now");
+    // this.setState({ profileModal: true });
   };
 
   handleLogout = () => {
@@ -223,9 +222,9 @@ class SideBar extends React.Component {
                       open={open}
                       onClose={this.handleClose}
                     >
-                      <MenuItem onClick={this.handleProfile}>
+                      <MenuItem>
                         <p>Profile</p>
-                        <Profile />
+                        {/* <Profile /> */}
                       </MenuItem>
                       <Link to="/">
                         <MenuItem onClick={this.handleLogout}>Log Out</MenuItem>
