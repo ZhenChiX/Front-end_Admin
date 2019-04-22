@@ -109,6 +109,7 @@ class Login extends Component {
       multiline: "Controlled",
       email: "",
       password: "",
+      signup_email: "",
       signup_password: "",
       confirm_password: "",
       showPassword: false,
@@ -160,16 +161,16 @@ class Login extends Component {
   };
 
   handleSignUp = e => {
+    e.preventDefault();
     if (this.state.confirm_password === this.state.signup_password) {
       console.log("matching pw");
-      e.preventDefault();
       fire
         .auth()
         .createUserWithEmailAndPassword(
-          this.state.email,
+          this.state.signup_email,
           this.state.signup_password
         )
-        // .then(u => {})
+        .then(u => {})
         .then(u => {
           console.log(u);
         })
@@ -298,10 +299,10 @@ class Login extends Component {
                   required
                   type="email"
                   name="email"
-                  id="signup_username"
+                  id="signup_email"
                   label="UserName/Email"
                   className={classes.textField}
-                  onChange={this.handleChange("name")}
+                  onChange={this.handleChange("signup_email")}
                   margin="normal"
                 />
 
